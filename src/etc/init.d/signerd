@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+#	/etc/rc.d/init.d/signerd
+#
+#	watches /var/ftp/pub/upload for CSRs and signs them
+#
+# chkconfig: - 65 35
+# description: sign CSRs as they arrive in /var/ftp/pub/upload
+# processname: signer.pl
+
+# Source function library.
+. /etc/init.d/functions
+
+if [ -r /etc/sysconfig/signerd ]; then
+    . /etc/sysconfig/signerd
+fi
+
+RETVAL=0
+prog=signer.pl
+exec=/usr/local/sbin/$prog
+pidfile=/var/run/signerd/signerd.pid
+lockfile=/var/lock/subsys/signerd
+
+abort_if_not_root() {
+	if ! [ $(id -u) -eq 0 ]; then
+		echo "You must be root to do this" >&2
+		exit 1
+	fi
+	return 0
+}
+
+start() {
+	abort_if_not_root
+	echo -n "Starting ${prog}: "
+	daemon --pidfile=${pidfile} ${exec} ${OPTIONS}
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch ${lockfile}
+	echo
+	return $RETVAL
+}	
+
+stop() {
+	abort_if_not_root
+	echo -n "Shutting down ${prog}: "
+	killproc -p $pidfile $exec
+    RETVAL=$?
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    echo
+	return $RETVAL
+}
+
+case "$1" in
+    start) start ;;
+    stop) stop ;;
+    restart) stop; start ;;
+    status)
+      status -p $pidfile $exec
+      RETVAL=$?
+	  ;;
+    *)
+	  echo "Usage: signerd {start|stop|status|restart}"
+	  RETVAL=1
+	  ;;
+esac
+exit $RETVAL
