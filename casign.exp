@@ -1,0 +1,54 @@
+#!/usr/bin/expect
+#
+
+### log_file -a /tmp/expectlog
+### #log_user 0
+### eval spawn /bin/bash 
+### sleep .2
+### send "/usr/bin/openssl ca -in /var/ftp/upload/$argv.csr -out /var/ftp/pub/certs/$argv.crt\r"
+### #expect "Enter pass phrase for *"
+### #sleep .2
+### #send "redhat\r"
+### sleep .2
+### expect -timeout 5 "Sign the certificate*" {
+### sleep .2
+### send "y\r"
+### sleep .2
+### expect "1 out of 1 certificate requests certified, commit*" 
+### sleep .2
+### send "y\r"
+### sleep .2
+### }
+
+proc signcert {csrfile crtfile} {
+	send "/usr/bin/openssl ca -in $csrfile -out $crtfile\r"
+	expect {
+		"Sign the certificate*" {
+			sleep .2
+			send "y\r"
+			expect {
+				"1 out of 1 certificate requests certified, commit*" {
+					sleep .2
+					send "y\r"
+					sleep .2
+					return 0
+				}
+			}
+		}
+	}
+	return 1
+}
+
+set csrfile [lindex $argv 0]
+set crtfile [lindex $argv 1]
+
+#puts "csrfile: $csrfile\n";
+#puts "crtfile: $crtfile\n";
+
+spawn /bin/bash 
+set rez [signcert $csrfile $crtfile]
+if { $rez == 0 } {
+	exit 0
+}
+puts "Error with the csr\n"
+exit 1
