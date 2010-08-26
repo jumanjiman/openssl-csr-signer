@@ -9,7 +9,7 @@
 # will remove the zero byte file from the certs dir.  Either way, it moves 
 # the csr file to /tmp and names it with a timestamp.
 #
-# This script expects an expect script to be in /usr/local/bin/ named
+# This script expects an expect script to be in /usr/local/sbin/ named
 # casign.exp.  The original of that script was written by
 # Brandon Perkins <bperkins@redhat.com>
 
@@ -38,7 +38,7 @@ while (true) {
 				# This exit code is always getting set to be 0, and I
 				# haven't figured out how to get expect to return the 
 				# error codes.
-				$exit = system("/usr/local/bin/casign.exp $dir/$name.csr $certdir/$name.crt");
+				$exit = system("/usr/local/sbin/casign.exp $dir/$name.csr $certdir/$name.crt");
 				print "$exit <--- exit code\n";
 				sleep 10;
 
