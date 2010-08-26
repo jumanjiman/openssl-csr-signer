@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Author: Brad McDuffie <bmcduffi@redhat.com>
 # Thu Aug 19 21:21:10 MDT 2010
-# Perl script to automate signing certificates for RH423
+# Perl script to automate signing CSRs in a specified directory.
 #
 # Description:
 # This script watches /var/ftp/upload and signs CSR files automatically and
