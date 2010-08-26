@@ -18,8 +18,9 @@ fi
 RETVAL=0
 prog=signer.pl
 exec=/usr/local/sbin/$prog
-pidfile=/var/run/signerd/signerd.pid
+pidfile=/var/run/signerd.pid
 lockfile=/var/lock/subsys/signerd
+logfile=/var/log/signerd
 
 abort_if_not_root() {
 	if ! [ $(id -u) -eq 0 ]; then
@@ -32,9 +33,12 @@ abort_if_not_root() {
 start() {
 	abort_if_not_root
 	echo -n "Starting ${prog}: "
-	daemon --pidfile=${pidfile} ${exec} ${OPTIONS}
+	nohup ${exec} ${OPTIONS} &> ${logfile} &
 	RETVAL=$?
-	[ $RETVAL -eq 0 ] && touch ${lockfile}
+	if [ $RETVAL -eq 0 ]; then
+	  pid=$(ps axo comm,pid | awk "\$1~/^$prog/{print \$2}")
+	  [[ -n $pid ]] && echo $pid > $pidfile && touch ${lockfile} || RETVAL=1
+	fi
 	echo
 	return $RETVAL
 }	

@@ -17,7 +17,7 @@ $dir = "/var/ftp/upload";
 $certdir = "/var/ftp/pub/certs";
 $oldcertdir = "/tmp";
 
-system(clear);
+#system(clear);
 print "Watching $dir\n";
 $line = "";
 @files=<$dir/*>;
