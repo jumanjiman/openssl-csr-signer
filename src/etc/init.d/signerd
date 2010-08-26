@@ -18,7 +18,7 @@ fi
 RETVAL=0
 prog=signer.pl
 exec=/usr/local/sbin/$prog
-pidfile=/var/run/signerd.pid
+pidfile=/var/run/signerd/signerd.pid
 lockfile=/var/lock/subsys/signerd
 logfile=/var/log/signerd
 
@@ -39,6 +39,7 @@ start() {
 	  pid=$(ps axo comm,pid | awk "\$1~/^$prog/{print \$2}")
 	  [[ -n $pid ]] && echo $pid > $pidfile && touch ${lockfile} || RETVAL=1
 	fi
+	[ $RETVAL -eq 0 ] && success || failure
 	echo
 	return $RETVAL
 }	
