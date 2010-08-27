@@ -1,26 +1,20 @@
 #!/usr/bin/expect
+# 
+# Authors: Brandon Perkins <bperkins@redhat.com>
+#          Brad McDuffie <bmcduffi@redhat.com>
 #
+# This script is designed to answer the questions for signing csr requests
+# using openssl for a self signed CA.  Some logic has been added to 
+# return exit codes appropriately to the calling script.
+#
+# Brandon is the original author.  He sent me all of the work the script
+# does here.  I took all of that and made it more flexible.  In the process,
+# I learned how to use expect!
 
-### log_file -a /tmp/expectlog
-### #log_user 0
-### eval spawn /bin/bash 
-### sleep .2
-### send "/usr/bin/openssl ca -in /var/ftp/upload/$argv.csr -out /var/ftp/pub/certs/$argv.crt\r"
-### #expect "Enter pass phrase for *"
-### #sleep .2
-### #send "redhat\r"
-### sleep .2
-### expect -timeout 5 "Sign the certificate*" {
-### sleep .2
-### send "y\r"
-### sleep .2
-### expect "1 out of 1 certificate requests certified, commit*" 
-### sleep .2
-### send "y\r"
-### sleep .2
-### }
-
+# Here we setup our signing loop or (process) as expect calls it
 proc signcert {csrfile crtfile} {
+	# This assumes openssl is going to be in /usr/bin. This should
+	# probably be changed to a variable.
 	send "/usr/bin/openssl ca -in $csrfile -out $crtfile\r"
 	expect {
 		"Sign the certificate*" {
@@ -39,11 +33,9 @@ proc signcert {csrfile crtfile} {
 	return 1
 }
 
+# Set our variables for the arguments passed into the script
 set csrfile [lindex $argv 0]
 set crtfile [lindex $argv 1]
-
-#puts "csrfile: $csrfile\n";
-#puts "crtfile: $crtfile\n";
 
 spawn /bin/bash 
 set rez [signcert $csrfile $crtfile]
