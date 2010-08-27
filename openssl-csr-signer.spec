@@ -1,6 +1,6 @@
 Name:		openssl-csr-signer
 Version:	0.1
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		Admin
@@ -49,4 +49,7 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Aug 26 2010 Paul Morgan <jumanjiman@gmail.com> 0.1-1
+- new package built with tito
+
 
