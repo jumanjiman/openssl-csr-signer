@@ -44,6 +44,7 @@ rm -rf %{buildroot}
 /etc/rc.d/init.d/signerd
 /usr/local/sbin/casign.exp
 /usr/local/sbin/signer.pl
+/etc/sysconfig/signerd
 %doc COPYING
 
 
