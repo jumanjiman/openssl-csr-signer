@@ -1,7 +1,8 @@
 %global _prefix /usr/local
+%global debug_package %{nil}
 Name:		openssl-csr-signer
-Version:	0.1
-Release:	3%{?dist}
+Version:	0.2
+Release:	0%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		System Environment/Daemons
