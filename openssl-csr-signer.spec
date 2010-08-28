@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 Name:		openssl-csr-signer
 Version:	0.2
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		System Environment/Daemons
@@ -52,6 +52,9 @@ watches /var/ftp/pub/upload and signs CSRs
 
 
 %changelog
+* Sat Aug 28 2010 Paul Morgan <jumanjiman@gmail.com> 0.2-1
+- do not build debuginfo; version bump (jumanjiman@gmail.com)
+
 * Sat Aug 28 2010 Paul Morgan <jumanjiman@gmail.com> 0.1-3
 - clean up spec file (jumanjiman@gmail.com)
 - Added appropriate comments to the expect script and gave credit to the
