@@ -3,7 +3,7 @@
 
 Name:		openssl-csr-signer
 Version:	0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		System Environment/Daemons
@@ -55,6 +55,9 @@ watches /var/ftp/pub/upload and signs CSRs
 
 
 %changelog
+* Sat Aug 28 2010 Paul Morgan <jumanjiman@gmail.com> 0.2-3
+- whitespace for legibility (jumanjiman@gmail.com)
+
 * Sat Aug 28 2010 Paul Morgan <jumanjiman@gmail.com> 0.2-2
 - build as noarch (jumanjiman@gmail.com)
 
