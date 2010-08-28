@@ -8,12 +8,14 @@ Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		System Environment/Daemons
 License:	GPLv3+
+# download source, tarballs, srpm, or rpm at url below
 URL:		http://github.com/jumanjiman/openssl-csr-signer
 Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 buildarch:	noarch
 BuildRequires:	tito >= 0.2
+# see http://github.com/dgoodwin/tito
 
 Requires:	perl
 Requires:	gawk
@@ -27,7 +29,7 @@ watches /var/ftp/pub/upload and signs CSRs
 
 
 %build
-
+# nothing to build
 
 %install
 %{__rm} -rf %{buildroot}
@@ -46,10 +48,10 @@ watches /var/ftp/pub/upload and signs CSRs
 
 %files
 %defattr(-,root,root,-)
-/%{_sysconfdir}/rc.d/init.d/signerd
+%{_sysconfdir}/rc.d/init.d/signerd
 %{_sbindir}/casign.exp
 %{_sbindir}/signer.pl
-/%{_sysconfdir}/sysconfig/signerd
+%{_sysconfdir}/sysconfig/signerd
 %doc COPYING
 
 
