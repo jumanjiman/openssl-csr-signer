@@ -1,9 +1,10 @@
+%global _prefix /usr/local
 Name:		openssl-csr-signer
 Version:	0.1
 Release:	2%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
-Group:		Admin
+Group:		System Environment/Daemons
 License:	GPLv3+
 URL:		http://github.com/jumanjiman/openssl-csr-signer
 Source0:	%{name}-%{version}.tar.gz
@@ -25,26 +26,26 @@ watches /var/ftp/pub/upload and signs CSRs
 
 
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/etc/rc.d/init.d
-mkdir -p %{buildroot}/etc/sysconfig
-mkdir -p %{buildroot}/usr/local/sbin
-install -m755 src/etc/init.d/signerd %{buildroot}/etc/rc.d/init.d
-install -m644 src/etc/sysconfig/signerd %{buildroot}/etc/sysconfig
-install -m755 src/sbin/signer.pl %{buildroot}/usr/local/sbin
-install -m755 src/sbin/casign.exp %{buildroot}/usr/local/sbin
+%{__rm} -rf %{buildroot}
+%{__mkdir_p} %{buildroot}/%{_sysconfdir}/rc.d/init.d
+%{__mkdir_p} %{buildroot}/%{_sysconfdir}/sysconfig
+%{__mkdir_p} %{buildroot}/usr/local/sbin
+%{__install} -p -m755 src/etc/init.d/signerd %{buildroot}/%{_sysconfdir}/rc.d/init.d
+%{__install} -p -m644 src/etc/sysconfig/signerd %{buildroot}/%{_sysconfdir}/sysconfig
+%{__install} -p -m755 src/sbin/signer.pl %{buildroot}/%{_sbindir}
+%{__install} -p -m755 src/sbin/casign.exp %{buildroot}/%{_sbindir}
 
 
 %clean
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
 
 %files
 %defattr(-,root,root,-)
-/etc/rc.d/init.d/signerd
-/usr/local/sbin/casign.exp
-/usr/local/sbin/signer.pl
-/etc/sysconfig/signerd
+/%{_sysconfdir}/rc.d/init.d/signerd
+%{_sbindir}/casign.exp
+%{_sbindir}/signer.pl
+/%{_sysconfdir}/sysconfig/signerd
 %doc COPYING
 
 
