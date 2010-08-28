@@ -10,6 +10,7 @@ License:	GPLv3+
 URL:		http://github.com/jumanjiman/openssl-csr-signer
 Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+buildarch:	noarch
 
 BuildRequires:	tito >= 0.2
 Requires:	perl
