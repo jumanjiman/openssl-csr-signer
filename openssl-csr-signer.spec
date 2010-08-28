@@ -1,7 +1,7 @@
 %global _prefix /usr/local
 Name:		openssl-csr-signer
 Version:	0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	watches /var/ftp/pub/upload and signs CSRs
 
 Group:		System Environment/Daemons
@@ -51,6 +51,14 @@ watches /var/ftp/pub/upload and signs CSRs
 
 
 %changelog
+* Sat Aug 28 2010 Paul Morgan <jumanjiman@gmail.com> 0.1-3
+- clean up spec file (jumanjiman@gmail.com)
+- Added appropriate comments to the expect script and gave credit to the
+  authors (narkoleptik@gmail.com)
+- Cleaned up some of the things I left out before.  Also, added variables for
+  the binary directories rather than hard coding them in.
+  (narkoleptik@gmail.com)
+
 * Thu Aug 26 2010 Paul Morgan <jumanjiman@gmail.com> 0.1-2
 - add missing file to spec (jumanjiman@gmail.com)
 
