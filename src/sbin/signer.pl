@@ -87,8 +87,9 @@ while (true) {
 
 				# Cleaning up.  Moves the csr files out of the way and goes
 				# back to watching for new files.
-				print "Moving $dir/$name.csr to $oldcertdir/name.csr\n";
-				system("mv $dir/$name.csr $oldcertdir/$name.csr-`date +%s`");
+				$newfilename = "$name.csr-" . time(); 
+				print "Moving $dir/$name.csr to $oldcertdir/$newfilename\n";
+				system("mv $dir/$name.csr $oldcertdir/$newfilename");
 				print "Watching $dir for uploads\n";
 			}
 		}
